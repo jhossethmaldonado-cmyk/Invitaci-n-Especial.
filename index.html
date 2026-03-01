@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para alguien especial ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-bg: #ffb6c1;
+            --elegant-white: #fffafa;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--pink-bg);
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ANIMACIÓN DE CORAZONES FLOTANTES */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            user-select: none;
+            animation: float 10s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* CONTENEDOR SIN LÍNEAS (Efecto sutil) */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+            max-width: 450px;
+            background: transparent; /* Sin líneas ni cuadros visibles */
+        }
+
+        /* TIPOGRAFÍA ELEGANTE */
+        h1, .frase-inicio {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .detalles {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .detalles strong { font-weight: 500; color: #fff; }
+
+        /* BOTONES */
+        .btn-container { display: flex; gap: 20px; justify-content: center; margin-top: 30px; }
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-si { background: white; color: #ff85b2; font-weight: bold; }
+        .btn-no { background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid white; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        .hidden { display: none; }
+
+        /* CORAZÓN FINAL ESTILO IMAGEN */
+        #corazon-final {
+            display: none;
+            font-size: 150px;
+            color: #ff4d8d;
+            text-shadow: 0 0 20px #ff4d8d, 0 0 40px #ff4d8d;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        for (let i = 0; i < 25; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(heart);
+        }
+    </script>
+
+    <div id="paso1" class="container">
+        <div class="frase-inicio" onclick="irAlPaso(2)" style="cursor: pointer;">Te invito a salir...</div>
+    </div>
+
+    <div id="paso2" class="container hidden">
+        <h1>Te invito a salir</h1>
+        <div class="detalles">
+            <p><strong>Fecha:</strong> Mañana JAJAAJ (28/02/2026)</p>
+            <p><strong>Lugar:</strong> Al parque</p>
+            <p><strong>Hora:</strong> 3:00pm</p>
+            <p><i>"Porque no te he visto ya tres días y ya me hace falta verte JAJAJ, porque te extraño y muchooo!!, y por guapa!!!"</i></p>
+            <p><strong>Domingo de salida juntos</strong></p>
+        </div>
+        
+        <div class="btn-container">
+            <button class="btn btn-si" onclick="aceptar()">si aceptoo!! 🫶</button>
+            <button class="btn btn-no" onclick="rechazar()">no, no puedo 😞💔</button>
+        </div>
+    </div>
+
+    <div id="paso3" class="container hidden">
+        <h1 id="mensaje-final" style="font-size: 3.5rem;">¡Gracias!mujer bellaaaa!!, te quiero!! </h1>
+        <div id="corazon-final">❤</div>
+    </div>
+
+    <script>
+        function irAlPaso(paso) {
+            document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
+            document.getElementById('paso' + paso).classList.remove('hidden');
+        }
+
+        function aceptar() {
+            document.body.style.backgroundColor = "#000";
+            // Limpiar corazones rosados para el modo oscuro
+            document.querySelectorAll('.heart').forEach(h => h.style.color = 'rgba(255, 77, 141, 0.5)');
+            irAlPaso(3);
+            document.getElementById('corazon-final').style.display = 'block';
+        }
+
+        function rechazar() {
+            irAlPaso(3);
+            document.getElementById('mensaje-final').innerText = "ni modo te toca jajaj, besillosss!! ";
+            document.getElementById('corazon-final').style.display = 'block';
+            document.body.style.backgroundColor = "#000";
+            
+            setTimeout(() => {
+                document.body.style.backgroundColor = "#ffb6c1";
+                document.getElementById('mensaje-final').innerText = "¡Gracias!";
+                irAlPaso(2);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
